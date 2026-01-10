@@ -3,6 +3,7 @@ import { AppointmentsTable } from "@/components/dashboard/AppointmentsTable";
 import { PerformanceChart } from "@/components/dashboard/PerformanceChart";
 import { ConversionChart } from "@/components/dashboard/ConversionChart";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { SupportModal } from "@/components/SupportModal";
 import { formatTime, dadosOperacao } from "@/data/dashboardData";
 import { useGoogleSheets } from "@/hooks/useGoogleSheets";
 import nexzoRobot from "@/assets/nexzo-robot.png";
@@ -79,6 +80,7 @@ const Index = () => {
                 )}
                 Atualizar
               </Button>
+              <SupportModal />
               <div className="px-4 py-2 bg-gray-100 dark:bg-black text-black dark:text-white rounded-lg text-sm font-bold flex items-center gap-2 shadow-md border border-gray-300 dark:border-gray-700">
                 <span className={`w-2 h-2 rounded-full ${error ? 'bg-red-500' : 'bg-green-500'} animate-pulse`} />
                 {error ? 'Erro de Conexão' : 'Sistema Online'}
