@@ -45,7 +45,7 @@ const Index = () => {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="px-4 py-2 bg-black text-white rounded-lg text-sm font-bold flex items-center gap-2 shadow-md">
+              <div className="px-4 py-2 bg-gray-100 dark:bg-black text-black dark:text-white rounded-lg text-sm font-bold flex items-center gap-2 shadow-md border border-gray-300 dark:border-gray-700">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 Sistema Online
               </div>
