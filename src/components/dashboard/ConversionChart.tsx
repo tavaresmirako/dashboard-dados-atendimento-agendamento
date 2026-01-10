@@ -1,4 +1,5 @@
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { useTheme } from "next-themes";
 
 interface ConversionChartProps {
   agendadas: number;
@@ -6,9 +7,20 @@ interface ConversionChartProps {
 }
 
 export const ConversionChart = ({ agendadas, concluidas }: ConversionChartProps) => {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
+  const colors = {
+    success: "hsl(142, 76%, 36%)",
+    warning: "hsl(38, 92%, 50%)",
+    background: isDark ? "hsl(222, 47%, 8%)" : "hsl(0, 0%, 100%)",
+    border: isDark ? "hsl(217, 33%, 17%)" : "hsl(214, 32%, 91%)",
+    foreground: isDark ? "hsl(210, 40%, 98%)" : "hsl(222, 47%, 11%)",
+  };
+
   const data = [
-    { name: "Concluídas", value: concluidas, color: "hsl(142, 76%, 36%)" },
-    { name: "Pendentes", value: agendadas - concluidas, color: "hsl(38, 92%, 50%)" },
+    { name: "Concluídas", value: concluidas, color: colors.success },
+    { name: "Pendentes", value: agendadas - concluidas, color: colors.warning },
   ];
 
   const percentage = Math.round((concluidas / agendadas) * 100);
@@ -44,10 +56,10 @@ export const ConversionChart = ({ agendadas, concluidas }: ConversionChartProps)
             </Pie>
             <Tooltip
               contentStyle={{
-                backgroundColor: "hsl(222, 47%, 8%)",
-                border: "1px solid hsl(217, 33%, 17%)",
+                backgroundColor: colors.background,
+                border: `1px solid ${colors.border}`,
                 borderRadius: "8px",
-                color: "hsl(210, 40%, 98%)",
+                color: colors.foreground,
               }}
             />
           </PieChart>

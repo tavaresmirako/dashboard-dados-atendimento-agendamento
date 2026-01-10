@@ -2,6 +2,7 @@ import { MetricCard } from "@/components/dashboard/MetricCard";
 import { AppointmentsTable } from "@/components/dashboard/AppointmentsTable";
 import { PerformanceChart } from "@/components/dashboard/PerformanceChart";
 import { ConversionChart } from "@/components/dashboard/ConversionChart";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { dadosOperacao, formatTime } from "@/data/dashboardData";
 import nexzoRobot from "@/assets/nexzo-robot.png";
 import {
@@ -43,11 +44,12 @@ const Index = () => {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <div className="px-4 py-2 bg-success/10 text-success rounded-lg text-sm font-medium flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
                 Sistema Online
               </div>
+              <ThemeToggle />
             </div>
           </div>
         </div>

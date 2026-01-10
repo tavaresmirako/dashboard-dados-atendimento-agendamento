@@ -8,12 +8,16 @@ import {
   YAxis,
 } from "recharts";
 import { MetricaGeral } from "@/data/dashboardData";
+import { useTheme } from "next-themes";
 
 interface PerformanceChartProps {
   data: MetricaGeral[];
 }
 
 export const PerformanceChart = ({ data }: PerformanceChartProps) => {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   const chartData = data
     .slice()
     .reverse()
@@ -23,6 +27,16 @@ export const PerformanceChart = ({ data }: PerformanceChartProps) => {
       leads: item.novos_leads,
       reunioes: item.reunioes_agendadas,
     }));
+
+  const colors = {
+    primary: isDark ? "hsl(217, 91%, 60%)" : "hsl(217, 91%, 50%)",
+    success: "hsl(142, 76%, 36%)",
+    grid: isDark ? "hsl(217, 33%, 17%)" : "hsl(214, 32%, 91%)",
+    text: isDark ? "hsl(215, 20%, 55%)" : "hsl(215, 16%, 47%)",
+    background: isDark ? "hsl(222, 47%, 8%)" : "hsl(0, 0%, 100%)",
+    border: isDark ? "hsl(217, 33%, 17%)" : "hsl(214, 32%, 91%)",
+    foreground: isDark ? "hsl(210, 40%, 98%)" : "hsl(222, 47%, 11%)",
+  };
 
   return (
     <div
@@ -42,41 +56,41 @@ export const PerformanceChart = ({ data }: PerformanceChartProps) => {
           <AreaChart data={chartData}>
             <defs>
               <linearGradient id="colorConversas" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(217, 91%, 60%)" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="hsl(217, 91%, 60%)" stopOpacity={0} />
+                <stop offset="5%" stopColor={colors.primary} stopOpacity={0.3} />
+                <stop offset="95%" stopColor={colors.primary} stopOpacity={0} />
               </linearGradient>
               <linearGradient id="colorLeads" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(142, 76%, 36%)" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="hsl(142, 76%, 36%)" stopOpacity={0} />
+                <stop offset="5%" stopColor={colors.success} stopOpacity={0.3} />
+                <stop offset="95%" stopColor={colors.success} stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(217, 33%, 17%)" />
+            <CartesianGrid strokeDasharray="3 3" stroke={colors.grid} />
             <XAxis
               dataKey="data"
-              stroke="hsl(215, 20%, 55%)"
+              stroke={colors.text}
               fontSize={12}
               tickLine={false}
               axisLine={false}
             />
             <YAxis
-              stroke="hsl(215, 20%, 55%)"
+              stroke={colors.text}
               fontSize={12}
               tickLine={false}
               axisLine={false}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "hsl(222, 47%, 8%)",
-                border: "1px solid hsl(217, 33%, 17%)",
+                backgroundColor: colors.background,
+                border: `1px solid ${colors.border}`,
                 borderRadius: "8px",
-                color: "hsl(210, 40%, 98%)",
+                color: colors.foreground,
               }}
-              labelStyle={{ color: "hsl(215, 20%, 55%)" }}
+              labelStyle={{ color: colors.text }}
             />
             <Area
               type="monotone"
               dataKey="conversas"
-              stroke="hsl(217, 91%, 60%)"
+              stroke={colors.primary}
               strokeWidth={2}
               fillOpacity={1}
               fill="url(#colorConversas)"
@@ -85,7 +99,7 @@ export const PerformanceChart = ({ data }: PerformanceChartProps) => {
             <Area
               type="monotone"
               dataKey="leads"
-              stroke="hsl(142, 76%, 36%)"
+              stroke={colors.success}
               strokeWidth={2}
               fillOpacity={1}
               fill="url(#colorLeads)"
