@@ -39,20 +39,20 @@ export const AppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
                   Cliente
                 </div>
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium hidden sm:table-cell">
+              <TableHead className="text-muted-foreground font-medium">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
                   Data
                 </div>
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium hidden md:table-cell">
+              <TableHead className="text-muted-foreground font-medium">
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
                   Hora
                 </div>
               </TableHead>
               <TableHead className="text-muted-foreground font-medium hidden lg:table-cell">Serviço</TableHead>
-              <TableHead className="text-muted-foreground font-medium hidden xl:table-cell">
+              <TableHead className="text-muted-foreground font-medium">
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4" />
                   Telefone
@@ -73,16 +73,16 @@ export const AppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
                 <TableCell className="font-medium text-foreground">
                   {appointment.nome_cliente}
                 </TableCell>
-                <TableCell className="text-muted-foreground hidden sm:table-cell">
+                <TableCell className="text-muted-foreground">
                   {formatDate(appointment.data)}
                 </TableCell>
-                <TableCell className="text-muted-foreground hidden md:table-cell">{appointment.hora}</TableCell>
+                <TableCell className="text-muted-foreground">{appointment.hora}</TableCell>
                 <TableCell className="hidden lg:table-cell">
                   <span className="px-2.5 py-1 bg-primary/10 text-primary rounded-md text-sm font-medium">
                     {appointment.servico}
                   </span>
                 </TableCell>
-                <TableCell className="text-muted-foreground font-mono text-sm hidden xl:table-cell">
+                <TableCell className="text-muted-foreground font-mono text-sm">
                   {formatPhone(appointment.telefone)}
                 </TableCell>
                 <TableCell>
