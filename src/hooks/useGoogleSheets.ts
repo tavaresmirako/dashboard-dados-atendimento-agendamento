@@ -33,12 +33,24 @@ const parseCSV = (csv: string): string[][] => {
   });
 };
 
+// Normalizar header removendo acentos, parênteses e espaços
+const normalizeHeader = (header: string): string => {
+  return header
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // remove acentos
+    .replace(/[()%]/g, "") // remove parênteses e %
+    .replace(/\s+/g, "_")
+    .replace(/_+/g, "_")
+    .trim();
+};
+
 // Converter CSV de métricas gerais para o formato esperado
 const parseMetricas = (csv: string): MetricaGeral[] => {
   const rows = parseCSV(csv);
   if (rows.length < 2) return [];
 
-  const headers = rows[0].map((h) => h.toLowerCase().replace(/\s+/g, "_"));
+  const headers = rows[0].map(normalizeHeader);
   const dataRows = rows.slice(1);
 
   return dataRows.map((row) => {
@@ -47,12 +59,13 @@ const parseMetricas = (csv: string): MetricaGeral[] => {
       obj[header] = row[index] || "";
     });
 
+    // Mapeia os nomes das colunas da planilha para os campos esperados
     return {
       data_hora: obj.data_hora || obj.data || "",
       conversas_mensais: parseInt(obj.conversas_mensais) || 0,
-      tempo_medio_s: parseInt(obj.tempo_medio_s) || 0,
+      tempo_medio_s: parseInt(obj.tempo_medio_s) || parseInt(obj.tempo_medio) || 0,
       novos_leads: parseInt(obj.novos_leads) || 0,
-      taxa_sucesso_percentual: parseFloat(obj.taxa_sucesso_percentual) || 0,
+      taxa_sucesso_percentual: parseFloat(obj.taxa_sucesso_percentual) || parseFloat(obj.taxa_de_sucesso) || 0,
       reunioes_agendadas: parseInt(obj.reunioes_agendadas) || 0,
       reunioes_concluidas: parseInt(obj.reunioes_concluidas) || 0,
     };
@@ -64,7 +77,7 @@ const parseAgendamentos = (csv: string): Agendamento[] => {
   const rows = parseCSV(csv);
   if (rows.length < 2) return [];
 
-  const headers = rows[0].map((h) => h.toLowerCase().replace(/\s+/g, "_"));
+  const headers = rows[0].map(normalizeHeader);
   const dataRows = rows.slice(1);
 
   return dataRows.map((row) => {
@@ -72,6 +85,10 @@ const parseAgendamentos = (csv: string): Agendamento[] => {
     headers.forEach((header, index) => {
       obj[header] = row[index] || "";
     });
+
+    // Mapeia os nomes das colunas da planilha para os campos esperados
+    const nomeCliente = obj.nome_do_cliente || obj.nome_cliente || obj.cliente || obj.nome || "";
+    const telefone = obj.telefone || obj.phone || obj.tel || "";
 
     // Mapeia status para os valores esperados
     let status: "scheduled" | "completed" | "cancelled" = "scheduled";
@@ -83,13 +100,13 @@ const parseAgendamentos = (csv: string): Agendamento[] => {
     }
 
     return {
-      nome_cliente: obj.nome_cliente || obj.cliente || obj.nome || "",
+      nome_cliente: nomeCliente,
       data: obj.data || "",
       hora: obj.hora || obj.horario || "",
-      servico: obj.servico || obj.serviço || "",
-      telefone: obj.telefone || obj.phone || "",
+      servico: obj.servico || "",
+      telefone: telefone,
       status,
-      tempo_resposta_s: parseInt(obj.tempo_resposta_s) || 0,
+      tempo_resposta_s: parseInt(obj.tempo_de_resposta_s) || parseInt(obj.tempo_resposta_s) || parseInt(obj.tempo_resposta) || 0,
     };
   }).filter(a => a.nome_cliente); // Filtra linhas vazias
 };
