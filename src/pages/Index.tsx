@@ -53,14 +53,14 @@ const Index = () => {
               <img 
                 src={nexzoRobot} 
                 alt="NEXZO Robot" 
-                className="w-12 h-12 object-contain"
+                className="w-14 h-14 object-contain"
               />
               <div>
-                <h1 className="text-2xl font-bold gradient-text">
-                  NEXZO
-                </h1>
-                <p className="text-base font-medium text-muted-foreground mt-1">
+                <h1 className="text-2xl md:text-3xl font-bold gradient-text">
                   Painel de Monitoramento de Dados de Atendimento
+                </h1>
+                <p className="text-sm font-medium text-muted-foreground mt-1">
+                  NEXZO Automações
                 </p>
               </div>
             </div>
