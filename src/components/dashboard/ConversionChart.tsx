@@ -13,9 +13,9 @@ export const ConversionChart = ({ agendadas, concluidas }: ConversionChartProps)
   const colors = {
     success: "hsl(142, 76%, 36%)",
     warning: "hsl(38, 92%, 50%)",
-    background: isDark ? "hsl(222, 47%, 8%)" : "hsl(0, 0%, 100%)",
-    border: isDark ? "hsl(217, 33%, 17%)" : "hsl(214, 32%, 91%)",
-    foreground: isDark ? "hsl(210, 40%, 98%)" : "hsl(222, 47%, 11%)",
+    background: isDark ? "hsl(150, 30%, 8%)" : "hsl(0, 0%, 100%)",
+    border: isDark ? "hsl(150, 25%, 17%)" : "hsl(150, 20%, 91%)",
+    foreground: isDark ? "hsl(210, 40%, 98%)" : "hsl(150, 40%, 11%)",
   };
 
   const data = [

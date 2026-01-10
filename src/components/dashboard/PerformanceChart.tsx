@@ -29,13 +29,13 @@ export const PerformanceChart = ({ data }: PerformanceChartProps) => {
     }));
 
   const colors = {
-    primary: isDark ? "hsl(217, 91%, 60%)" : "hsl(217, 91%, 50%)",
-    success: "hsl(142, 76%, 36%)",
-    grid: isDark ? "hsl(217, 33%, 17%)" : "hsl(214, 32%, 91%)",
-    text: isDark ? "hsl(215, 20%, 55%)" : "hsl(215, 16%, 47%)",
-    background: isDark ? "hsl(222, 47%, 8%)" : "hsl(0, 0%, 100%)",
-    border: isDark ? "hsl(217, 33%, 17%)" : "hsl(214, 32%, 91%)",
-    foreground: isDark ? "hsl(210, 40%, 98%)" : "hsl(222, 47%, 11%)",
+    primary: isDark ? "hsl(142, 70%, 45%)" : "hsl(142, 76%, 36%)",
+    secondary: isDark ? "hsl(160, 84%, 39%)" : "hsl(160, 84%, 39%)",
+    grid: isDark ? "hsl(150, 25%, 17%)" : "hsl(150, 20%, 91%)",
+    text: isDark ? "hsl(150, 20%, 55%)" : "hsl(150, 16%, 47%)",
+    background: isDark ? "hsl(150, 30%, 8%)" : "hsl(0, 0%, 100%)",
+    border: isDark ? "hsl(150, 25%, 17%)" : "hsl(150, 20%, 91%)",
+    foreground: isDark ? "hsl(210, 40%, 98%)" : "hsl(150, 40%, 11%)",
   };
 
   return (
@@ -60,8 +60,8 @@ export const PerformanceChart = ({ data }: PerformanceChartProps) => {
                 <stop offset="95%" stopColor={colors.primary} stopOpacity={0} />
               </linearGradient>
               <linearGradient id="colorLeads" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={colors.success} stopOpacity={0.3} />
-                <stop offset="95%" stopColor={colors.success} stopOpacity={0} />
+                <stop offset="5%" stopColor={colors.secondary} stopOpacity={0.3} />
+                <stop offset="95%" stopColor={colors.secondary} stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke={colors.grid} />
@@ -99,7 +99,7 @@ export const PerformanceChart = ({ data }: PerformanceChartProps) => {
             <Area
               type="monotone"
               dataKey="leads"
-              stroke={colors.success}
+              stroke={colors.secondary}
               strokeWidth={2}
               fillOpacity={1}
               fill="url(#colorLeads)"
@@ -114,7 +114,7 @@ export const PerformanceChart = ({ data }: PerformanceChartProps) => {
           <span className="text-sm text-muted-foreground">Conversas</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-success" />
+          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: colors.secondary }} />
           <span className="text-sm text-muted-foreground">Leads</span>
         </div>
       </div>
