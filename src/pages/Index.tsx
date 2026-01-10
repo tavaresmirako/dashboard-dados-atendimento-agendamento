@@ -6,7 +6,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { SupportModal } from "@/components/SupportModal";
 import { formatTime, dadosOperacao } from "@/data/dashboardData";
 import { useGoogleSheets } from "@/hooks/useGoogleSheets";
-import nexzoRobot from "@/assets/nexzo-robot.png";
+import newIcon from "@/assets/new-icon.png";
 import {
   MessageSquare,
   Clock,
@@ -52,13 +52,13 @@ const Index = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <img 
-                src={nexzoRobot} 
-                alt="NEXZO Robot" 
-                className="w-14 h-14 object-contain"
+                src={newIcon} 
+                alt="Dashboard Icon" 
+                className="w-14 h-14 object-contain rounded-lg"
               />
               <div>
                 <h1 className="text-lg md:text-xl font-medium text-foreground">
-                  Painel de Monitoramento de Dados de Atendimento
+                  Dashboard de Atendimento
                 </h1>
                 <p className="text-sm font-bold text-foreground mt-1">
                   NEXZO Automações
