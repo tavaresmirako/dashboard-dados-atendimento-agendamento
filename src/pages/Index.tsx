@@ -3,6 +3,7 @@ import { AppointmentsTable } from "@/components/dashboard/AppointmentsTable";
 import { PerformanceChart } from "@/components/dashboard/PerformanceChart";
 import { ConversionChart } from "@/components/dashboard/ConversionChart";
 import { dadosOperacao, formatTime } from "@/data/dashboardData";
+import nexzoRobot from "@/assets/nexzo-robot.png";
 import {
   MessageSquare,
   Clock,
@@ -27,13 +28,20 @@ const Index = () => {
       <header className="border-b border-border bg-card/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold gradient-text">
-                Central de Atendimento
-              </h1>
-              <p className="text-sm text-muted-foreground mt-1">
-                Monitoramento em tempo real
-              </p>
+            <div className="flex items-center gap-4">
+              <img 
+                src={nexzoRobot} 
+                alt="NEXZO Robot" 
+                className="w-12 h-12 object-contain"
+              />
+              <div>
+                <h1 className="text-2xl font-bold gradient-text">
+                  NEXZO
+                </h1>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Painel de Monitoramento de Dados de Atendimento
+                </p>
+              </div>
             </div>
             <div className="flex items-center gap-4">
               <div className="px-4 py-2 bg-success/10 text-success rounded-lg text-sm font-medium flex items-center gap-2">
