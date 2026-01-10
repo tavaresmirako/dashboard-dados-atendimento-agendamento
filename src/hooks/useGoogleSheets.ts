@@ -33,15 +33,16 @@ const parseCSV = (csv: string): string[][] => {
   });
 };
 
-// Normalizar header removendo acentos, parênteses e espaços
+// Normalizar header removendo acentos, parênteses, barras e espaços
 const normalizeHeader = (header: string): string => {
   return header
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "") // remove acentos
-    .replace(/[()%]/g, "") // remove parênteses e %
+    .replace(/[()%\/]/g, "") // remove parênteses, % e barras
     .replace(/\s+/g, "_")
     .replace(/_+/g, "_")
+    .replace(/^_|_$/g, "") // remove underscores no início e fim
     .trim();
 };
 
@@ -53,23 +54,42 @@ const parseMetricas = (csv: string): MetricaGeral[] => {
   const headers = rows[0].map(normalizeHeader);
   const dataRows = rows.slice(1);
 
-  return dataRows.map((row) => {
+  const result = dataRows.map((row) => {
     const obj: Record<string, string> = {};
     headers.forEach((header, index) => {
       obj[header] = row[index] || "";
     });
 
-    // Mapeia os nomes das colunas da planilha para os campos esperados
-    return {
-      data_hora: obj.data_hora || obj.data || "",
-      conversas_mensais: parseInt(obj.conversas_mensais) || 0,
-      tempo_medio_s: parseInt(obj.tempo_medio_s) || parseInt(obj.tempo_medio) || 0,
-      novos_leads: parseInt(obj.novos_leads) || 0,
-      taxa_sucesso_percentual: parseFloat(obj.taxa_sucesso_percentual) || parseFloat(obj.taxa_de_sucesso) || 0,
-      reunioes_agendadas: parseInt(obj.reunioes_agendadas) || 0,
-      reunioes_concluidas: parseInt(obj.reunioes_concluidas) || 0,
+    // Encontra valores independente do nome exato da coluna
+    const findValue = (keys: string[]) => {
+      for (const key of keys) {
+        if (obj[key] !== undefined && obj[key] !== "") return obj[key];
+      }
+      return "";
     };
-  }).filter(m => m.data_hora); // Filtra linhas vazias
+
+    const findNumber = (keys: string[]) => {
+      const val = findValue(keys);
+      return parseInt(val) || 0;
+    };
+
+    const findFloat = (keys: string[]) => {
+      const val = findValue(keys);
+      return parseFloat(val) || 0;
+    };
+
+    return {
+      data_hora: findValue(["data_hora", "datahora", "data"]),
+      conversas_mensais: findNumber(["conversas_mensais"]),
+      tempo_medio_s: findNumber(["tempo_medio_s", "tempo_medio"]),
+      novos_leads: findNumber(["novos_leads"]),
+      taxa_sucesso_percentual: findFloat(["taxa_de_sucesso", "taxa_sucesso_percentual", "taxa_sucesso"]),
+      reunioes_agendadas: findNumber(["reunioes_agendadas"]),
+      reunioes_concluidas: findNumber(["reunioes_concluidas"]),
+    };
+  }).filter(m => m.data_hora || m.conversas_mensais > 0);
+  
+  return result;
 };
 
 // Converter CSV de agendamentos para o formato esperado
