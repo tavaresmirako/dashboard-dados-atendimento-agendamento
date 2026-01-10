@@ -59,7 +59,7 @@ const Index = () => {
                 <h1 className="text-lg md:text-xl font-medium text-foreground">
                   Painel de Monitoramento de Dados de Atendimento
                 </h1>
-                <p className="text-sm font-bold text-muted-foreground mt-1">
+                <p className="text-sm font-bold text-foreground mt-1">
                   NEXZO Automações
                 </p>
               </div>
