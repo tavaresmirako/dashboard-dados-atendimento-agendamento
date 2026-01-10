@@ -56,10 +56,10 @@ const Index = () => {
                 className="w-14 h-14 object-contain"
               />
               <div>
-                <h1 className="text-2xl md:text-3xl font-bold gradient-text">
+                <h1 className="text-lg md:text-xl font-medium text-foreground">
                   Painel de Monitoramento de Dados de Atendimento
                 </h1>
-                <p className="text-sm font-medium text-muted-foreground mt-1">
+                <p className="text-sm font-bold text-muted-foreground mt-1">
                   NEXZO Automações
                 </p>
               </div>
