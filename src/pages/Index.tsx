@@ -48,42 +48,42 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-xl sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+        <div className="container mx-auto px-4 md:px-6 py-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4 w-full md:w-auto">
               <img 
                 src={newIcon} 
                 alt="Dashboard Icon" 
-                className="w-14 h-14 object-contain rounded-lg"
+                className="w-10 h-10 md:w-14 md:h-14 object-contain rounded-lg"
               />
               <div>
-                <h1 className="text-lg md:text-xl font-medium text-foreground">
+                <h1 className="text-base md:text-xl font-medium text-foreground leading-tight">
                   Dashboard de Atendimento
                 </h1>
-                <p className="text-sm font-bold text-foreground mt-1">
+                <p className="text-xs md:text-sm font-bold text-foreground">
                   NEXZO Automações
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center justify-center md:justify-end gap-2 md:gap-3 w-full md:w-auto">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => refetch()}
                 disabled={isLoading}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 h-9"
               >
                 {isLoading ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
                   <RefreshCw className="w-4 h-4" />
                 )}
-                Atualizar
+                <span className="hidden sm:inline">Atualizar</span>
               </Button>
               <SupportModal />
-              <div className="px-4 py-2 bg-gray-100 dark:bg-black text-black dark:text-white rounded-lg text-sm font-bold flex items-center gap-2 shadow-md border border-gray-300 dark:border-gray-700">
+              <div className="px-3 py-1.5 bg-gray-100 dark:bg-black text-black dark:text-white rounded-lg text-xs md:text-sm font-bold flex items-center gap-2 shadow-sm border border-gray-300 dark:border-gray-700">
                 <span className={`w-2 h-2 rounded-full ${error ? 'bg-red-500' : 'bg-green-500'} animate-pulse`} />
-                {error ? 'Erro de Conexão' : 'Sistema Online'}
+                <span className="whitespace-now">{error ? 'Erro' : 'Online'}</span>
               </div>
               <ThemeToggle />
             </div>
@@ -91,7 +91,7 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-6 py-8">
+      <main className="container mx-auto px-4 md:px-6 py-6 md:py-8">
         {/* Error Banner */}
         {error && (
           <div className="mb-6 p-4 bg-destructive/10 border border-destructive/30 rounded-lg flex items-start gap-3">
@@ -118,7 +118,7 @@ const Index = () => {
         {(!isLoading || data) && latestMetrics && (
           <>
             {/* Metrics Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-4 mb-8">
               <MetricCard
                 title="Conversas Mensais"
                 value={latestMetrics.conversas_mensais}

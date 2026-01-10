@@ -39,27 +39,27 @@ export const AppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
                   Cliente
                 </div>
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium">
+              <TableHead className="text-muted-foreground font-medium hidden sm:table-cell">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
                   Data
                 </div>
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium">
+              <TableHead className="text-muted-foreground font-medium hidden md:table-cell">
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
                   Hora
                 </div>
               </TableHead>
-              <TableHead className="text-muted-foreground font-medium">Serviço</TableHead>
-              <TableHead className="text-muted-foreground font-medium">
+              <TableHead className="text-muted-foreground font-medium hidden lg:table-cell">Serviço</TableHead>
+              <TableHead className="text-muted-foreground font-medium hidden xl:table-cell">
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4" />
                   Telefone
                 </div>
               </TableHead>
               <TableHead className="text-muted-foreground font-medium">Status</TableHead>
-              <TableHead className="text-muted-foreground font-medium text-right">
+              <TableHead className="text-muted-foreground font-medium text-right hidden sm:table-cell">
                 Tempo de Resposta
               </TableHead>
             </TableRow>
@@ -73,16 +73,16 @@ export const AppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
                 <TableCell className="font-medium text-foreground">
                   {appointment.nome_cliente}
                 </TableCell>
-                <TableCell className="text-muted-foreground">
+                <TableCell className="text-muted-foreground hidden sm:table-cell">
                   {formatDate(appointment.data)}
                 </TableCell>
-                <TableCell className="text-muted-foreground">{appointment.hora}</TableCell>
-                <TableCell>
+                <TableCell className="text-muted-foreground hidden md:table-cell">{appointment.hora}</TableCell>
+                <TableCell className="hidden lg:table-cell">
                   <span className="px-2.5 py-1 bg-primary/10 text-primary rounded-md text-sm font-medium">
                     {appointment.servico}
                   </span>
                 </TableCell>
-                <TableCell className="text-muted-foreground font-mono text-sm">
+                <TableCell className="text-muted-foreground font-mono text-sm hidden xl:table-cell">
                   {formatPhone(appointment.telefone)}
                 </TableCell>
                 <TableCell>
@@ -97,7 +97,7 @@ export const AppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
                     {statusLabels[appointment.status]}
                   </span>
                 </TableCell>
-                <TableCell className="text-right text-muted-foreground">
+                <TableCell className="text-right text-muted-foreground hidden sm:table-cell">
                   {formatTime(appointment.tempo_resposta_s)}
                 </TableCell>
               </TableRow>
