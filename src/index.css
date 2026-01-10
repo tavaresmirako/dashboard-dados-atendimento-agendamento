@@ -133,11 +133,11 @@
   }
 
   .metric-value {
-    @apply text-3xl font-bold text-black dark:text-black;
+    @apply text-3xl font-bold text-black dark:text-white;
   }
 
   .metric-label {
-    @apply text-sm text-black dark:text-black font-bold;
+    @apply text-sm text-black dark:text-white font-bold;
   }
 
   .metric-icon {
@@ -168,7 +168,7 @@
   }
 
   .gradient-text {
-    @apply text-black dark:text-black font-bold;
+    @apply text-black dark:text-white font-bold;
   }
 
   .glow {
