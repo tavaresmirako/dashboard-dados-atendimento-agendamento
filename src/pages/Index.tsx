@@ -65,27 +65,31 @@ const Index = () => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-wrap items-center justify-center md:justify-end gap-2 md:gap-3 w-full md:w-auto">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => refetch()}
-                disabled={isLoading}
-                className="flex items-center gap-2 h-9"
-              >
-                {isLoading ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <RefreshCw className="w-4 h-4" />
-                )}
-                <span className="hidden sm:inline">Atualizar</span>
-              </Button>
-              <SupportModal />
-              <div className="px-3 py-1.5 bg-gray-100 dark:bg-black text-black dark:text-white rounded-lg text-xs md:text-sm font-bold flex items-center gap-2 shadow-sm border border-gray-300 dark:border-gray-700">
-                <span className={`w-2 h-2 rounded-full ${error ? 'bg-red-500' : 'bg-green-500'} animate-pulse`} />
-                <span className="whitespace-now">{error ? 'Erro' : 'Online'}</span>
+            <div className="flex items-center justify-between md:justify-end gap-2 md:gap-3 w-full md:w-auto border-t md:border-t-0 pt-3 md:pt-0 mt-1 md:mt-0">
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => refetch()}
+                  disabled={isLoading}
+                  className="flex items-center gap-2 h-9 px-2 sm:px-3"
+                >
+                  {isLoading ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <RefreshCw className="w-4 h-4" />
+                  )}
+                  <span className="hidden xs:inline">Atualizar</span>
+                </Button>
+                <SupportModal />
               </div>
-              <ThemeToggle />
+              <div className="flex items-center gap-2">
+                <div className="px-2 sm:px-3 py-1.5 bg-gray-100 dark:bg-black text-black dark:text-white rounded-lg text-[10px] sm:text-xs md:text-sm font-bold flex items-center gap-2 shadow-sm border border-gray-300 dark:border-gray-700">
+                  <span className={`w-2 h-2 rounded-full ${error ? 'bg-red-500' : 'bg-green-500'} animate-pulse`} />
+                  <span className="whitespace-nowrap">{error ? 'Erro' : 'Online'}</span>
+                </div>
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         </div>
@@ -118,7 +122,7 @@ const Index = () => {
         {(!isLoading || data) && latestMetrics && (
           <>
             {/* Metrics Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-4 mb-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-2 sm:gap-3 md:gap-4 mb-6 md:mb-8">
               <MetricCard
                 title="Conversas Mensais"
                 value={latestMetrics.conversas_mensais}
@@ -176,11 +180,11 @@ const Index = () => {
             </div>
 
             {/* Charts Row */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-              <div className="lg:col-span-2">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
+              <div className="lg:col-span-2 w-full overflow-hidden">
                 <PerformanceChart data={dashboardData.metricas_gerais} />
               </div>
-              <div>
+              <div className="w-full overflow-hidden">
                 <ConversionChart
                   agendadas={latestMetrics.reunioes_agendadas}
                   concluidas={latestMetrics.reunioes_concluidas}

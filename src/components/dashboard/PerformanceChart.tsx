@@ -40,18 +40,18 @@ export const PerformanceChart = ({ data }: PerformanceChartProps) => {
 
   return (
     <div
-      className="bg-card rounded-xl border border-border p-6 animate-fade-in"
+      className="bg-card rounded-xl border border-border p-4 md:p-6 animate-fade-in"
       style={{ animationDelay: "300ms" }}
     >
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold text-foreground">
+      <div className="mb-4 md:mb-6">
+        <h3 className="text-base md:text-lg font-semibold text-foreground">
           Desempenho Semanal
         </h3>
-        <p className="text-sm text-muted-foreground mt-1">
+        <p className="text-xs md:text-sm text-muted-foreground mt-1">
           Conversas, leads e reuniões dos últimos dias
         </p>
       </div>
-      <div className="h-[300px]">
+      <div className="h-[250px] md:h-[300px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={chartData}>
             <defs>

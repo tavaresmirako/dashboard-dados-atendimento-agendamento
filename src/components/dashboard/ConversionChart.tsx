@@ -27,18 +27,18 @@ export const ConversionChart = ({ agendadas, concluidas }: ConversionChartProps)
 
   return (
     <div
-      className="bg-card rounded-xl border border-border p-6 animate-fade-in"
+      className="bg-card rounded-xl border border-border p-4 md:p-6 animate-fade-in"
       style={{ animationDelay: "350ms" }}
     >
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold text-foreground">
+      <div className="mb-4 md:mb-6">
+        <h3 className="text-base md:text-lg font-semibold text-foreground">
           Taxa de Conclusão
         </h3>
-        <p className="text-sm text-muted-foreground mt-1">
+        <p className="text-xs md:text-sm text-muted-foreground mt-1">
           Reuniões concluídas vs agendadas
         </p>
       </div>
-      <div className="h-[200px] relative">
+      <div className="h-[180px] md:h-[200px] relative">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
