@@ -2,6 +2,8 @@
 
 Este projeto é um dashboard moderno para visualização de dados de atendimento e agendamento, focado em fornecer insights claros e métricas de performance.
 
+![Dashboard Preview](./dashboard_n8n.png)
+
 ## Link do Site
 Acesse o dashboard online em: [https://dashboard.nexzoautomacoes.online/](https://dashboard.nexzoautomacoes.online/)
 
