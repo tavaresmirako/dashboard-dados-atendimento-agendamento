@@ -15,7 +15,7 @@ export interface Agendamento {
   hora: string;
   servico: string;
   telefone: string;
-  status: "scheduled" | "completed" | "cancelled";
+  status: string; // Alterado para string para aceitar qualquer valor da planilha
   tempo_resposta_s: number;
 }
 
@@ -34,42 +34,6 @@ export const dadosOperacao: DadosOperacao = {
       taxa_sucesso_percentual: 68,
       reunioes_agendadas: 8,
       reunioes_concluidas: 5
-    },
-    {
-      data_hora: "2026-01-08 15:30",
-      conversas_mensais: 98,
-      tempo_medio_s: 28,
-      novos_leads: 11,
-      taxa_sucesso_percentual: 72,
-      reunioes_agendadas: 6,
-      reunioes_concluidas: 4
-    },
-    {
-      data_hora: "2026-01-07 15:30",
-      conversas_mensais: 105,
-      tempo_medio_s: 35,
-      novos_leads: 9,
-      taxa_sucesso_percentual: 65,
-      reunioes_agendadas: 7,
-      reunioes_concluidas: 6
-    },
-    {
-      data_hora: "2026-01-06 15:30",
-      conversas_mensais: 89,
-      tempo_medio_s: 30,
-      novos_leads: 12,
-      taxa_sucesso_percentual: 70,
-      reunioes_agendadas: 5,
-      reunioes_concluidas: 3
-    },
-    {
-      data_hora: "2026-01-05 15:30",
-      conversas_mensais: 115,
-      tempo_medio_s: 27,
-      novos_leads: 16,
-      taxa_sucesso_percentual: 75,
-      reunioes_agendadas: 9,
-      reunioes_concluidas: 7
     }
   ],
   agendamentos_detalhados: [
@@ -79,7 +43,7 @@ export const dadosOperacao: DadosOperacao = {
       hora: "15:30",
       servico: "Apresentação",
       telefone: "5515981606793@as.whatsapp.net",
-      status: "scheduled",
+      status: "Agendado",
       tempo_resposta_s: 240
     },
     {
@@ -88,7 +52,7 @@ export const dadosOperacao: DadosOperacao = {
       hora: "10:00",
       servico: "Demonstração",
       telefone: "5511987002345@as.whatsapp.net",
-      status: "completed",
+      status: "Concluído",
       tempo_resposta_s: 210
     },
     {
@@ -97,26 +61,8 @@ export const dadosOperacao: DadosOperacao = {
       hora: "14:00",
       servico: "Consultoria",
       telefone: "5521999887766@as.whatsapp.net",
-      status: "scheduled",
+      status: "Reagendado",
       tempo_resposta_s: 180
-    },
-    {
-      nome_cliente: "Marina Costa",
-      data: "2026-01-08",
-      hora: "11:30",
-      servico: "Demonstração",
-      telefone: "5531988776655@as.whatsapp.net",
-      status: "completed",
-      tempo_resposta_s: 195
-    },
-    {
-      nome_cliente: "Roberto Alves",
-      data: "2026-01-11",
-      hora: "09:00",
-      servico: "Apresentação",
-      telefone: "5541977665544@as.whatsapp.net",
-      status: "scheduled",
-      tempo_resposta_s: 160
     }
   ]
 };
