@@ -15,6 +15,15 @@ interface AppointmentsTableProps {
 }
 
 export const AppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
+  const getStatusClass = (status: string) => {
+    const s = status.toLowerCase().trim();
+    if (s === "reagendado" || s === "rescheduled") return "status-rescheduled";
+    if (s === "concluído" || s === "concluido" || s === "completed") return "status-completed";
+    if (s === "cancelado" || s === "cancelled") return "status-cancelled";
+    if (s === "agendado" || s === "scheduled") return "status-scheduled";
+    return "";
+  };
+
   return (
     <div className="bg-card rounded-xl border border-border overflow-hidden animate-fade-in" style={{ animationDelay: "400ms" }}>
       <div className="p-6 border-b border-border">
@@ -80,15 +89,7 @@ export const AppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
                   {formatPhone(appointment.telefone)}
                 </TableCell>
                 <TableCell>
-                  <span
-                    className={cn(
-                      "status-badge",
-                      appointment.status.toLowerCase().trim().includes("agendado") && "status-scheduled",
-                      appointment.status.toLowerCase().trim().includes("concluído") && "status-completed",
-                      appointment.status.toLowerCase().trim().includes("cancelado") && "status-cancelled",
-                      appointment.status.toLowerCase().trim().includes("reagendado") && "status-rescheduled"
-                    )}
-                  >
+                  <span className={cn("status-badge", getStatusClass(appointment.status))}>
                     {appointment.status}
                   </span>
                 </TableCell>
