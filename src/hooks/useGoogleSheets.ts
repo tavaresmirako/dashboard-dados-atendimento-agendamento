@@ -8,7 +8,7 @@ const getSheetUrl = (sheetId: string) =>
   `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv`;
 
 const parseCSV = (csv: string): string[][] => {
-  const lines = csv.trim().split(/\r?\n/);
+  const lines = csv.trim().split("\n");
   return lines.map((line) => {
     const values: string[] = [];
     let current = "";
@@ -53,38 +53,40 @@ const parseMetricas = (csv: string): MetricaGeral[] => {
 const parseAgendamentos = (csv: string): Agendamento[] => {
   const rows = parseCSV(csv);
   if (rows.length < 2) return [];
+  const headers = rows[0].map(h => h.trim());
   
-  const headers = rows[0].map(h => h.trim().toLowerCase());
-  const clienteIdx = headers.indexOf("cliente");
-  const dataIdx = headers.indexOf("data");
-  const horaIdx = headers.indexOf("hora");
-  const servicoIdx = headers.indexOf("serviço");
-  const telefoneIdx = headers.indexOf("telefone");
-  const tempoIdx = headers.indexOf("tempo de resposta");
-
   return rows.slice(1).map((row) => {
-    // Busca o status em toda a linha para ser infalível
-    let normalizedStatus = "Agendado";
-    const rowString = row.join(" ").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const obj: Record<string, string> = {};
+    headers.forEach((h, i) => { obj[h] = row[i] || ""; });
+
+    // Mapeamento exato baseado no CSV real
+    const rawTempo = obj["Tempo de Resposta"] || "0";
+    const tempoResposta = rawTempo.toLowerCase().includes("auto") ? 0 : (parseInt(rawTempo) || 0);
+
+    const rawStatus = obj["Status"] || "Agendado";
+    let normalizedStatus = rawStatus;
     
-    if (rowString.includes("reagendado")) {
+    const lowerStatus = rawStatus.toLowerCase().trim();
+    if (lowerStatus === "reagendado" || lowerStatus === "rescheduled") {
       normalizedStatus = "Reagendado";
-    } else if (rowString.includes("concluido")) {
+    } else if (lowerStatus === "concluído" || lowerStatus === "completed") {
       normalizedStatus = "Concluído";
-    } else if (rowString.includes("cancelado")) {
+    } else if (lowerStatus === "cancelado" || lowerStatus === "cancelled") {
       normalizedStatus = "Cancelado";
-    } else if (rowString.includes("agendado")) {
+    } else if (lowerStatus === "agendado" || lowerStatus === "scheduled") {
       normalizedStatus = "Agendado";
+    } else {
+      normalizedStatus = rawStatus;
     }
 
     return {
-      nome_cliente: clienteIdx !== -1 ? row[clienteIdx] : row[0],
-      data: dataIdx !== -1 ? row[dataIdx] : row[1],
-      hora: horaIdx !== -1 ? row[horaIdx] : row[2],
-      servico: servicoIdx !== -1 ? row[servicoIdx] : row[3],
-      telefone: telefoneIdx !== -1 ? row[telefoneIdx] : row[4],
+      nome_cliente: obj["Cliente"] || "",
+      data: obj["Data"] || "",
+      hora: obj["Hora"] || "",
+      servico: obj["Serviço"] || "",
+      telefone: obj["Telefone"] || "",
       status: normalizedStatus,
-      tempo_resposta_s: tempoIdx !== -1 ? (row[tempoIdx].toLowerCase().includes("auto") ? 0 : parseInt(row[tempoIdx]) || 0) : 0,
+      tempo_resposta_s: tempoResposta,
     };
   }).filter(a => a.nome_cliente);
 };
@@ -103,7 +105,6 @@ export const useGoogleSheets = () => {
         fetch(`${getSheetUrl(AGENDAMENTOS_SHEET_ID)}&t=${ts}`),
       ]);
       const [csvM, csvA] = await Promise.all([resM.text(), resA.text()]);
-      
       setData({
         metricas_gerais: parseMetricas(csvM),
         agendamentos_detalhados: parseAgendamentos(csvA),

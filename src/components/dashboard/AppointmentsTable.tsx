@@ -83,10 +83,10 @@ export const AppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
                   <span
                     className={cn(
                       "status-badge",
-                      (appointment.status === "Agendado" || appointment.status === "scheduled") && "status-scheduled",
-                      (appointment.status === "Concluído" || appointment.status === "completed") && "status-completed",
-                      (appointment.status === "Cancelado" || appointment.status === "cancelled") && "status-cancelled",
-                      (appointment.status === "Reagendado" || appointment.status === "rescheduled") && "status-rescheduled"
+                      appointment.status.toLowerCase().trim().includes("agendado") && "status-scheduled",
+                      appointment.status.toLowerCase().trim().includes("concluído") && "status-completed",
+                      appointment.status.toLowerCase().trim().includes("cancelado") && "status-cancelled",
+                      appointment.status.toLowerCase().trim().includes("reagendado") && "status-rescheduled"
                     )}
                   >
                     {appointment.status}
