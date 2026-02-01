@@ -211,7 +211,7 @@ const Index = () => {
             </p>
             <p className="flex items-center gap-2">
               {data && <span className="w-2 h-2 rounded-full bg-green-500" />}
-              Dashboard de Atendimento v1.0 {data ? '• Google Sheets Conectado' : ''}
+              Dashboard de Atendimento v2.0 {data ? '• Google Sheets Conectado' : ''}
             </p>
           </div>
         </div>

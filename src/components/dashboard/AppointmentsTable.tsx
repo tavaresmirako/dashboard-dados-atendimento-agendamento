@@ -14,12 +14,6 @@ interface AppointmentsTableProps {
   appointments: Agendamento[];
 }
 
-const statusLabels = {
-  scheduled: "Agendado",
-  completed: "Concluído",
-  cancelled: "Cancelado",
-};
-
 export const AppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
   return (
     <div className="bg-card rounded-xl border border-border overflow-hidden animate-fade-in" style={{ animationDelay: "400ms" }}>
@@ -89,12 +83,13 @@ export const AppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
                   <span
                     className={cn(
                       "status-badge",
-                      appointment.status === "scheduled" && "status-scheduled",
-                      appointment.status === "completed" && "status-completed",
-                      appointment.status === "cancelled" && "status-cancelled"
+                      appointment.status === "Agendado" && "status-scheduled",
+                      appointment.status === "Concluído" && "status-completed",
+                      appointment.status === "Cancelado" && "status-cancelled",
+                      appointment.status === "Reagendado" && "status-rescheduled"
                     )}
                   >
-                    {statusLabels[appointment.status]}
+                    {appointment.status}
                   </span>
                 </TableCell>
                 <TableCell className="text-right text-muted-foreground hidden sm:table-cell">
